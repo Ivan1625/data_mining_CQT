@@ -1,0 +1,20 @@
+import time
+from abc import abstractmethod
+
+class SignalTemplate():
+    def __init__(self, weight: float, ticker: str, update_frequency: int):
+        self.weight = weight
+        self.ticker = ticker
+        self.update_frequency = update_frequency
+        self.signal = 0
+        self.last_updated = 0
+    
+    def get_signal_thread(self):
+        while True:
+            self.generate_signal()
+            self.last_updated = time.time()
+            time.sleep(self.update_frequency)
+
+    @abstractmethod
+    def generate_signal(self):
+        pass
