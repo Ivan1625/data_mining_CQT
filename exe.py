@@ -267,10 +267,10 @@ class Execution:
             delta = max((targ - curr)/price,1/price)
             price = Decimal(delta)
             # Round down to 2 decimals → 123.45
-            rounded = price.quantize(Decimal('0.01'), rounding=ROUND_DOWN)
+            rounded = price.quantize(Decimal('0.0001'), rounding=ROUND_DOWN)
             print(delta)
             print(rounded)
-            self.place_order(coin=asset,side=np.sign(delta),qty=abs(math.floor(delta)))
+            self.place_order(coin=asset,side=np.sign(delta),qty=abs(rounded))
         # signals=self.calculate()
         # target_usd = {}
         # total_value=self.get_portfolio_value()
