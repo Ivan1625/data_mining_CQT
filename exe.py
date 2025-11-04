@@ -206,23 +206,28 @@ class Execution:
                     # print(targ)
                     # print(qty*price) 
                     st=self.place_order(coin=asset,side=np.sign(qty),qty=abs(qty))
+                    # time.sleep(0.2)
                 elif des==0:
                     st=self.clear_all(spec=asset,bal=r)
                 if st==200:
                     i+=1
-                if i==5:
+                if i%5==0:
                     time.sleep(1)
             else:
                 continue
     def clear_all(self,spec=None,bal=None):
         r= bal if bal is not None else self.get_balance()
         all_assets=set(self.ratio.keys())
+        i=1 if bal==None else 0
         if spec==None:
             for asset in all_assets:
                 if asset == "USD": continue  
                 curr = r['SpotWallet'].get(asset, {}).get("Free", 0.0)
                 if curr!=0:
                     self.place_order(coin=asset,side=np.sign(-1),qty=abs(curr))
+                    i+=1
+                    if i%5==0:
+                        time.sleep(1)
         else:
             curr = r['SpotWallet'].get(spec, {}).get("Free", 0.0)
             if curr!=0:
