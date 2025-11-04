@@ -1,7 +1,7 @@
 import time
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 
-class SignalTemplate():
+class SignalTemplate(ABC):
     def __init__(self, weight: float, ticker: str, update_frequency: int):
         self.weight = weight
         self.ticker = ticker
