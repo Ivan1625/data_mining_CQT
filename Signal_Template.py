@@ -8,12 +8,17 @@ class SignalTemplate(ABC):
         self.update_frequency = update_frequency
         self.signal = 0
         self.last_updated = 0
+        self.buy_price = None
+        self.is_stoploss = False
     
     def get_signal_thread(self):
         while True:
             self.generate_signal()
             self.last_updated = time.time()
             time.sleep(self.update_frequency)
+
+    def enforce_stoploss(self):
+        self.is_stoploss = True
 
     @abstractmethod
     def generate_signal(self):
