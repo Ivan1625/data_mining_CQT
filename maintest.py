@@ -11,6 +11,7 @@
 #!/usr/bin/env python3
 import time, logging, threading
 from typing import Dict
+from exe import Execution
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(threadName)s] %(message)s")
 log = logging.getLogger("master")
@@ -33,7 +34,7 @@ def build_consensus(strategies):
     votes = {}
     for s in strategies:
         votes.setdefault(s.ticker, []).append(s.get_signal())
-    return {coin: sum(v) / len(v) for coin, v in votes.items()}
+    return {coin: max(sum(v) / len(v),0) for coin, v in votes.items()}
 
 # ---------- master loop ----------
 def master_loop(strategies):
@@ -50,7 +51,6 @@ class DictExecutor(threading.Thread):
         super().__init__(daemon=False, name="DictExecutor")
         self.stop   = stop_evt
         self.rate   = RateLimiter(5, 1)
-        from exe import Execution
         self.broker = Execution(ticker_ratio={})
 
     def run(self):
@@ -96,7 +96,7 @@ def main():
     ## strats = [signal1, signal2, ... ]
 
     st_threads = [threading.Thread(target=s.get_signal_thread, daemon=True, name=f"Strat-{i}")
-                  for i, s in enumerate(strats)]
+                  for i, s in enumerate(strat)]
     for t in st_threads:
         t.start()
 
