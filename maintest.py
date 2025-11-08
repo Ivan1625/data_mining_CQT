@@ -17,7 +17,7 @@ log = logging.getLogger("master")
 
 # ---------- config ----------
 UPDATE_SEC   = 1
-COIN_WEIGHTS = {"BTC": 0.40, "ETH": 0.35, "BNB": 0.25}
+COIN_WEIGHTS = {"BTC": 0.5, "ETH": 0.5}
 STRATS_PER_COIN = 5
 
 # ---------- shared ----------
@@ -26,14 +26,8 @@ target_lock   = threading.Lock()              # guards writes
 stop_all      = threading.Event()
 
 # ---------- import your strategy ----------
-from strategies import TestStrategy
-
-def build_strategies() -> list:
-    strats = []
-    for coin, weight in COIN_WEIGHTS.items():
-        for _ in range(STRATS_PER_COIN):
-            strats.append(TestStrategy(weight / STRATS_PER_COIN, coin, update_sec=5))
-    return strats
+from signals.hybinance import HyBinance
+from signals.hyokx import HyOKX
 
 def build_consensus(strategies):
     votes = {}
@@ -97,7 +91,10 @@ class RateLimiter:
 
 # ---------- start-up ----------
 def main():
-    strats = build_strategies()
+    # strats = build_strategies()
+    ## hard code into strats list
+    ## strats = [signal1, signal2, ... ]
+
     st_threads = [threading.Thread(target=s.get_signal_thread, daemon=True, name=f"Strat-{i}")
                   for i, s in enumerate(strats)]
     for t in st_threads:
