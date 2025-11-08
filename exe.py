@@ -202,9 +202,10 @@ class Execution:
                     qty=np.sign(targ)*max(math.floor(abs((targ)/price)/step)*step,math.ceil(abs(1/price)/step)*step)
                     # print(cash)
                     cash=cash-targ*(1+0.001)
-                    # print(cash)
-                    # print(targ)
-                    # print(qty*price) 
+                    print("-------------")
+                    print(f"targ: {targ} | curr: {curr}")
+                    print(f"{asset}: {qty*price}") 
+                    print("-------------")
                     st=self.place_order(coin=asset,side=np.sign(qty),qty=abs(qty))
                     # time.sleep(0.2)
                 elif des==0:

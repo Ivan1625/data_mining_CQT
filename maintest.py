@@ -37,8 +37,10 @@ def main():
     exe = Execution(COIN_WEIGHTS)
 
     while True:
+        for i,s in enumerate(strats):
+            print(f"{time.time()}: [{i}] {s.signal}")
         exe.send_order(build_consensus(strats))
-        time.sleep(1)
+        time.sleep(300)
 
 if __name__ == "__main__":
     main()
