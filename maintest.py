@@ -38,7 +38,7 @@ def main():
 
     while True:
         exe.send_order(build_consensus(strats))
-
+        time.sleep(1)
 
 if __name__ == "__main__":
     main()

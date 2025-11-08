@@ -215,6 +215,7 @@ class Execution:
                     time.sleep(1)
             else:
                 continue
+
     def clear_all(self,spec=None,bal=None):
         r= bal if bal is not None else self.get_balance()
         all_assets=set(self.ratio.keys())
