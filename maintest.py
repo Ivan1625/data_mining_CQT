@@ -38,7 +38,7 @@ def main():
 
     while True:
         for i,s in enumerate(strats):
-            print(f"{i}: {s.signal}")
+            print(f"{time.time()}: [{i}] {s.signal}")
         exe.send_order(build_consensus(strats))
         time.sleep(300)
 
