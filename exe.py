@@ -174,7 +174,7 @@ class Execution:
             value=wallet[spec]['Free']*ticker['Data'][f"{spec}/USD"]['LastPrice']
             proportion_p=value/total_value
             proportion_t=value/(total_value*self.ratio[spec])
-            return total_value,proportion_p,proportion_t
+            return total_value, proportion_p, proportion_t
             
 
     def send_order(self, target_position:Dict):
@@ -215,6 +215,7 @@ class Execution:
                     time.sleep(1)
             else:
                 continue
+
     def clear_all(self,spec=None,bal=None):
         r= bal if bal is not None else self.get_balance()
         all_assets=set(self.ratio.keys())

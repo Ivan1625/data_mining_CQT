@@ -13,7 +13,7 @@ class SignalTemplate(ABC):
     
     def get_signal_thread(self):
         while True:
-            self.generate_signal()
+            self.get_signal()
             self.last_updated = time.time()
             time.sleep(self.update_frequency)
 
@@ -21,5 +21,5 @@ class SignalTemplate(ABC):
         self.is_stoploss = True
 
     @abstractmethod
-    def generate_signal(self):
-        pass
+    def get_signal(self):
+        raise NotImplementedError
