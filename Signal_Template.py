@@ -22,4 +22,4 @@ class SignalTemplate(ABC):
 
     @abstractmethod
     def get_signal(self):
-        pass
+        raise NotImplementedError
