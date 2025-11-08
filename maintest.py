@@ -98,7 +98,7 @@ class RateLimiter:
 # ---------- start-up ----------
 def main():
     strats = build_strategies()
-    st_threads = [threading.Thread(target=s.run, daemon=True, name=f"Strat-{i}")
+    st_threads = [threading.Thread(target=s.get_signal_thread, daemon=True, name=f"Strat-{i}")
                   for i, s in enumerate(strats)]
     for t in st_threads:
         t.start()
