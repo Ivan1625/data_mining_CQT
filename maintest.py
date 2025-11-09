@@ -43,7 +43,7 @@ def main():
         for i,s in enumerate(strats):
             print(f"{time.time()}: [{i}] {s.signal}")
         exe.send_order(build_consensus(strats))
-        time.sleep(300)
+        time.sleep(10)
 
 if __name__ == "__main__":
     main()
