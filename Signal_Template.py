@@ -13,7 +13,7 @@ class SignalTemplate(ABC):
     
     def get_signal_thread(self):
         while True:
-            self.get_signal()
+            self.signal = self.get_signal()
             self.last_updated = time.time()
             time.sleep(self.update_frequency)
 
