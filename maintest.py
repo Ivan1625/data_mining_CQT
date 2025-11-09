@@ -39,6 +39,7 @@ def main():
     exe = Execution(COIN_WEIGHTS)
 
     while True:
+        print(f"len of strats: {len(strats)}")
         for i,s in enumerate(strats):
             print(f"{time.time()}: [{i}] {s.signal}")
         exe.send_order(build_consensus(strats))
