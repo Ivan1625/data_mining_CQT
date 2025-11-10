@@ -42,15 +42,16 @@ class hmm_signal(SignalTemplate):
         """Fetch OHLCV data from exchange"""
         try:
             # Initialize exchange
-            ex_class = getattr(ccxt, self.exchange_id)
-            exchange = ex_class({"enableRateLimit": True})
+            # ex_class = getattr(ccxt, self.exchange_id)
+            # exchange = ex_class({"enableRateLimit": True})
             
             # Fetch data
             all_rows = []
             limit = self.limit
             
             # Fetch most recent data
-            ohlcv = exchange.fetch_ohlcv(self.symbol, timeframe=self.timeframe, limit=limit)
+            # change from exchange to ccxt binance
+            ohlcv = ccxt.binance.fetch_ohlcv(self.symbol, timeframe=self.timeframe, limit=limit)
             if not ohlcv:
                 return pd.DataFrame()
             
@@ -277,4 +278,5 @@ class hmm_signal(SignalTemplate):
         except Exception as e:
             print(f"Error in get_signal: {e}")
             return self.signal  # Return previous signal on error
+
 
