@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(threadName)s] %(m
 log = logging.getLogger("master")
 
 # ---------- config ----------
-COIN_WEIGHTS = {"BTC": 0.4, "ETH": 0.45,'BNB': 0.15}
+COIN_WEIGHTS = {"BTC": 0.4, "ETH": 0.5,'BNB': 0.1}
 
 # ---------- shared ----------
 latest_target: Dict[str, float] = {}          # latest consensus
@@ -47,7 +47,6 @@ def main():
     exe = Execution(COIN_WEIGHTS)
 
     while True:
-        exe.print()
         print(f"len of strats: {len(strats)}")
         for i,s in enumerate(strats):
             print(f"{time.time()}: [{i}] {s.signal}")
