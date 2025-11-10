@@ -7,10 +7,9 @@ from collections import deque
 import statistics
 
 class mvrv(SignalTemplate):
-    def __init__(self, weight=0.5, ticker='BTC', signal_update_frequency_seconds=3600, window_size=7):
+    def __init__(self, weight, ticker='BTC', signal_update_frequency_seconds=3600, window_size=7):
         super().__init__(weight, ticker, signal_update_frequency_seconds)
         self.window_size = window_size
-        self.z=0
 
     def data(self):
         f=int(time.time()*1e3)
@@ -22,18 +21,19 @@ class mvrv(SignalTemplate):
         df.columns=['t','mvrv']
         df['t']=pd.to_datetime(df['t'],unit='ms')
         df=df.iloc[-8:-1]
-        # self.history.append(latest)
         return df
     
     def get_signal(self):
-        # f=int(time.time()*1e3)-3600*0*1000
-        df=self.data()
-        cur=df.iloc[-1]
-        z=(cur-df.mean())/df.std()
-        if self.z<-0.9:
-            self.signal=1
-        elif (self.z>-0.9):
-            self.signal=0
+        try:
+            df=self.data()
+            cur=df.iloc[-1]
+            z=(cur-df.mean())/df.std()
+            if z<-0.9:
+                return 1
+            elif (z>-0.9):
+                return 0
+        except:
+            return 0
         
 
 
