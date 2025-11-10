@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(threadName)s] %(m
 log = logging.getLogger("master")
 
 # ---------- config ----------
-COIN_WEIGHTS = {"BTC": 0.3, "ETH": 0.8,'BNB':}
+COIN_WEIGHTS = {"BTC": 0.4, "ETH": 0.45,'BNB': 0.15}
 
 # ---------- shared ----------
 latest_target: Dict[str, float] = {}          # latest consensus
