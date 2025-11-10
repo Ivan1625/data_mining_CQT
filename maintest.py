@@ -49,10 +49,6 @@ def main():
     while True:
         print(f"len of strats: {len(strats)}")
         for i,s in enumerate(strats):
-            try:
-                print(f"hybinance's ratio: {hybinance.get_rolling_ratio()}")
-            except:
-                pass
             print(f"{time.time()}: [{i}] {s.signal}")
         exe.send_order(build_consensus(strats))
         time.sleep(10)
