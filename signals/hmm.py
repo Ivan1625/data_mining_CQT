@@ -23,7 +23,7 @@ class ModelConfig:
     lookback_fit: Optional[int] = 2000
 
 class hmm_signal(SignalTemplate):
-    def __init__(self, weight=0.5, ticker='BNB', signal_update_frequency_seconds=3600, window_size=7):
+    def __init__(self, weight, ticker='BNB', signal_update_frequency_seconds=3600, window_size=7):
         super().__init__(weight, ticker, signal_update_frequency_seconds)
         self.window_size = window_size
         self.exchange_id = "binance"
@@ -277,3 +277,4 @@ class hmm_signal(SignalTemplate):
         except Exception as e:
             print(f"Error in get_signal: {e}")
             return self.signal  # Return previous signal on error
+
