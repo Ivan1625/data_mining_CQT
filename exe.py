@@ -221,7 +221,9 @@ class Execution:
                         time.sleep(1)
                 else:
                     continue
-        else:
+        except Exception as e:
+            print(e)
+            print('likely api sleep 2 sec')
             time.sleep(2)
 
     def clear_all(self,spec=None,bal=None):
