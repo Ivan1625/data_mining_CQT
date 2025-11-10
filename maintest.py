@@ -47,6 +47,7 @@ def main():
     exe = Execution(COIN_WEIGHTS)
 
     while True:
+        exe.print()
         print(f"len of strats: {len(strats)}")
         for i,s in enumerate(strats):
             print(f"{time.time()}: [{i}] {s.signal}")
