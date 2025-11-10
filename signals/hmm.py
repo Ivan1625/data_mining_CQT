@@ -51,7 +51,7 @@ class hmm_signal(SignalTemplate):
             
             # Fetch most recent data
             # change from exchange to ccxt binance
-            ohlcv = ccxt.binance.fetch_ohlcv(self.symbol, timeframe=self.timeframe, limit=limit)
+            ohlcv = ccxt.binance().fetch_ohlcv(symbol=self.symbol, timeframe=self.timeframe, limit=limit)
             if not ohlcv:
                 return pd.DataFrame()
             
@@ -278,5 +278,4 @@ class hmm_signal(SignalTemplate):
         except Exception as e:
             print(f"Error in get_signal: {e}")
             return self.signal  # Return previous signal on error
-
 
