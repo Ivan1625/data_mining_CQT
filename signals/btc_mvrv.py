@@ -32,7 +32,7 @@ class mvrv(SignalTemplate):
                 return 1
             elif (z>-0.9):
                 return 0
-        except:
+        except Exception as e:
             return 0
         
 
