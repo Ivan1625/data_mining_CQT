@@ -44,16 +44,14 @@ class HyperliquidETHDataFeed:
             return None
 
 class HyBinance(SignalTemplate):
-    def __init__(self, weight, ticker, signal_update_frequency_seconds, window_size=5, sell_threshold=1.2, buy_threshold=-1, sell_exit_threshold=1.1, buy_exit_threshold=-1):
+    def __init__(self, weight, ticker, signal_update_frequency_seconds, window_size=5, buy_threshold=-1, buy_exit_threshold=-1):
         super().__init__(weight, ticker, signal_update_frequency_seconds)
         self.window_size = window_size
         self.hyperliquid_window = deque([], maxlen=2)
         self.binance_window = deque([], maxlen=2)
         self.spread_window = deque([], maxlen=self.window_size)
         self.buy_threshold = buy_threshold
-        self.sell_threshold = sell_threshold
         self.buy_exit_threshold = buy_exit_threshold
-        self.sell_exit_threshold = sell_exit_threshold
 
         self.datafeed = HyperliquidETHDataFeed()
         self.hyperliquid_symbol = 'ETH/USDC:USDC'
