@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(threadName)s] %(m
 log = logging.getLogger("master")
 
 # ---------- config ----------
-COIN_WEIGHTS = {"BTC": 0.4, "ETH": 0.5,'BNB': 0}
+COIN_WEIGHTS = {"BTC": 0.325, "ETH": 0.625,'BNB': 0}
 
 # ---------- shared ----------
 latest_target: Dict[str, float] = {}          # latest consensus
@@ -52,6 +52,16 @@ def main():
         print(f"len of strats: {len(strats)}")
         for i,s in enumerate(strats):
             print(f"{time.time()}: [{i}] {s.signal}")
+        curbtc=exe.get_portfolio_value(spec='BTC')
+        print(f"current_nav:{curbtc[0]}")
+        print(f"current_nav_btc:{curbtc[1]}")
+        print(f"current_btc_to_nav:{curbtc[2]}")
+        print(f"current_btc_to_(nav_btc):{curbtc[3]}")
+        cureth=exe.get_portfolio_value(spec='ETH')
+        print(f"current_nav:{cureth[0]}")
+        print(f"current_nav_eth:{cureth[1]}")
+        print(f"current_eth_to_nav:{cureth[2]}")
+        print(f"current_eth_to_(nav_eth):{cureth[3]}")
         exe.send_order(build_consensus(strats))
         time.sleep(3)
 
