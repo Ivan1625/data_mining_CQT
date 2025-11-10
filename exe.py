@@ -172,10 +172,13 @@ class Execution:
         if spec==None:
             return total_value
         else: 
-            value=wallet[spec]['Free']*ticker['Data'][f"{spec}/USD"]['LastPrice']
-            proportion_p=value/total_value
-            proportion_t=value/(total_value*self.ratio[spec])
-            return total_value,value, proportion_p, proportion_t
+            try:
+                value=wallet[spec]['Free']*ticker['Data'][f"{spec}/USD"]['LastPrice']
+                proportion_p=value/total_value
+                proportion_t=value/(total_value*self.ratio[spec])
+                return total_value,value, proportion_p, proportion_t
+            except:
+                return 0
             
 
     def send_order(self, target_position:Dict):
