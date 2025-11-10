@@ -33,9 +33,9 @@ def main():
     activeaddressBTC = ActiveAddressBTC(1, "BTC", 60)
     depositorETH_5 = Depositor_ETH(1, "ETH", 60)
     depositorETH_15 = Depositor_ETH(1, "ETH", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
-    mvrv=mvrv()
+    mvrv_btc=mvrv()
 
-    strats = [hybinance, hyokx, activeaddressBTC, depositorETH_5, depositorETH_15,mvrv]
+    strats = [hybinance, hyokx, activeaddressBTC, depositorETH_5, depositorETH_15, mvrv_btc]
 
     st_threads = [threading.Thread(target=s.get_signal_thread, daemon=True, name=f"Strat-{i}")
                   for i, s in enumerate(strats)]
