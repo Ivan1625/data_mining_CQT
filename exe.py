@@ -178,7 +178,7 @@ class Execution:
                 proportion_t=value/(total_value*self.ratio[spec])
                 return total_value,value, proportion_p, proportion_t
             except:
-                return 0
+                return total_value,0,0,0
             
 
     def send_order(self, target_position:Dict):
