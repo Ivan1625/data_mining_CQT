@@ -35,7 +35,7 @@ def main():
     depositorETH_5 = Depositor_ETH(1, "ETH", 60)
     depositorETH_15 = Depositor_ETH(1, "ETH", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
     mvrv_btc=mvrv(1)
-    hmm_signal_instance=hmm_signal()
+    hmm_signal_instance=hmm_signal(1)
 
     strats = [hybinance, hyokx, activeaddressBTC, depositorETH_5, depositorETH_15, mvrv_btc,hmm_signal_instance]
 
