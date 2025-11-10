@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(threadName)s] %(m
 log = logging.getLogger("master")
 
 # ---------- config ----------
-COIN_WEIGHTS = {"BTC": 0.4, "ETH": 0.5,'BNB': 0.1}
+COIN_WEIGHTS = {"BTC": 0.4, "ETH": 0.5,'BNB': 0}
 
 # ---------- shared ----------
 latest_target: Dict[str, float] = {}          # latest consensus
@@ -35,9 +35,9 @@ def main():
     depositorETH_5 = Depositor_ETH(1, "ETH", 60)
     depositorETH_15 = Depositor_ETH(1, "ETH", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
     mvrv_btc=mvrv(1)
-    hmm_signal_instance=hmm_signal(1)
+    # hmm_signal_instance=hmm_signal(1)
 
-    strats = [hybinance, hyokx, activeaddressBTC, depositorETH_5, depositorETH_15, mvrv_btc, hmm_signal_instance]
+    strats = [hybinance, hyokx, activeaddressBTC, depositorETH_5, depositorETH_15, mvrv_btc]#, hmm_signal_instance]
 
     st_threads = [threading.Thread(target=s.get_signal_thread, daemon=True, name=f"Strat-{i}")
                   for i, s in enumerate(strats)]
@@ -51,7 +51,7 @@ def main():
         for i,s in enumerate(strats):
             print(f"{time.time()}: [{i}] {s.signal}")
         exe.send_order(build_consensus(strats))
-        time.sleep(10)
+        time.sleep(3)
 
 if __name__ == "__main__":
     main()
