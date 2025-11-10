@@ -61,7 +61,8 @@ class ActiveAddressBTC(SignalTemplate):
 
         if len(self.diff_window) < self.window_size - 2:
             return 0
-
+            
+        rolling_ratio = self.get_rolling_ratio()
         print(f"{self.ticker}| {self.last_updated}: {rolling_ratio}")
         if self.signal == 0: 
             if rolling_ratio > self.buy_threshold:
