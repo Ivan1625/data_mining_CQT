@@ -7,7 +7,7 @@ from collections import deque
 import statistics
 
 class mvrv(SignalTemplate):
-    def __init__(self, weight=0.5, ticker='BTC', signal_update_frequency_seconds=3600, window_size=7, buy_threshold=0.6, buy_exit_threshold=0.35):
+    def __init__(self, weight=0.5, ticker='BTC', signal_update_frequency_seconds=3600, window_size=7):
         super().__init__(weight, ticker, signal_update_frequency_seconds)
         self.window_size = window_size
         self.z=0
@@ -32,7 +32,7 @@ class mvrv(SignalTemplate):
         z=(cur-df.mean())/df.std()
         if self.z<-0.9:
             self.signal=1
-        elif (self.z>-0.9):# or self.z<-1.5):
+        elif (self.z>-0.9):
             self.signal=0
         
 
