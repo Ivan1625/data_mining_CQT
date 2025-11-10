@@ -14,18 +14,19 @@ from decimal import Decimal, ROUND_DOWN
 # load_dotenv()
 
 BASE_URL = "https://mock-api.roostoo.com"
-# API_KEY = os.getenv("ROOSTOO_API_KEY")
-# SECRET_KEY = os.getenv("ROOSTOO_SECRET_KEY")
+API_KEY = os.getenv("API_KEY")
+SECRET_KEY = os.getenv("API_SECRET")
 
-API_KEY = "wzVdBhwUlDOB4hhpPIKxh0GSlvUnxWQXpoU7t0o69INPArXcyg0poWOa6m8gtayO"
-SECRET_KEY = "vcXTcCASuT1qnlG9DPvG7kZfBJTPTvl0IErYG2QbgRYjgwwwmHxzovJVAjfgEJkp"
+# API_KEY = "wzVdBhwUlDOB4hhpPIKxh0GSlvUnxWQXpoU7t0o69INPArXcyg0poWOa6m8gtayO"
+# SECRET_KEY = "vcXTcCASuT1qnlG9DPvG7kZfBJTPTvl0IErYG2QbgRYjgwwwmHxzovJVAjfgEJkp"
 
 
 class Execution:
     def __init__(self, ticker_ratio):
         self.ratio=ticker_ratio
 
-
+    def print(self):
+        print(API_KEY)
     def generate_signature(self,params):
         query_string = '&'.join(["{}={}".format(k, params[k]) for k in sorted(params.keys())])
         us = SECRET_KEY.encode('utf-8')
