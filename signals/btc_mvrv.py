@@ -37,6 +37,7 @@ class mvrv(SignalTemplate):
             else:
                 return 0
         except Exception as e:
+            print('on9')
             return 0
         
 
