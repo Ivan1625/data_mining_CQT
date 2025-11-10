@@ -8,12 +8,13 @@ from signals.hyokx import HyOKX
 from signals.btc_address import ActiveAddressBTC
 from signals.depositor_eth import Depositor_ETH
 from signals.btc_mvrv import mvrv
+from signals.hmm import hmm_signal
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(threadName)s] %(message)s")
 log = logging.getLogger("master")
 
 # ---------- config ----------
-COIN_WEIGHTS = {"BTC": 0.3, "ETH": 0.8}
+COIN_WEIGHTS = {"BTC": 0.3, "ETH": 0.8,'BNB':}
 
 # ---------- shared ----------
 latest_target: Dict[str, float] = {}          # latest consensus
@@ -34,8 +35,9 @@ def main():
     depositorETH_5 = Depositor_ETH(1, "ETH", 60)
     depositorETH_15 = Depositor_ETH(1, "ETH", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
     mvrv_btc=mvrv(1)
+    hmm_signal_instance=hmm_signal()
 
-    strats = [hybinance, hyokx, activeaddressBTC, depositorETH_5, depositorETH_15, mvrv_btc]
+    strats = [hybinance, hyokx, activeaddressBTC, depositorETH_5, depositorETH_15, mvrv_btc,hmm_signal_instance]
 
     st_threads = [threading.Thread(target=s.get_signal_thread, daemon=True, name=f"Strat-{i}")
                   for i, s in enumerate(strats)]
