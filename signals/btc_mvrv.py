@@ -7,10 +7,9 @@ from collections import deque
 import statistics
 
 class mvrv(SignalTemplate):
-    def __init__(self, weight, ticker='BTC', signal_update_frequency_seconds=10, window_size=7):
+    def __init__(self, weight, ticker='BTC', signal_update_frequency_seconds=3600, window_size=7):
         super().__init__(weight, ticker, signal_update_frequency_seconds)
         self.window_size = window_size
-        # self.z=0
 
     def data(self):
         f=int(time.time()*1e3)
@@ -26,19 +25,15 @@ class mvrv(SignalTemplate):
     
     def get_signal(self):
         try:
-            df1=self.data()
-            df=df['mvrv']
+            df=self.data()
+            df1=df['mvrv']
             cur=df.iloc[-1]['mvrv']
-            print(cur)
-            print(df1.iloc[-1]['t'])
-            z=(cur-df.mean())/df.std()
+            z=(cur-df1.mean())/df1.std()
             if z<-0.9:
                 return 1
             else:
                 return 0
         except Exception as e:
-            print('on9')
             return 0
-        
 
 
