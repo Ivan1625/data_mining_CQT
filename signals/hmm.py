@@ -14,7 +14,7 @@ from hmmlearn.hmm import GaussianHMM
 
 @dataclass
 class ModelConfig:
-    n_states: int = 4
+    n_states: int = 3
     max_em_iter: int = 200
     tol: float = 1e-3
     seed: int = 42
@@ -278,5 +278,6 @@ class hmm_signal(SignalTemplate):
         except Exception as e:
             print(f"Error in get_signal: {e}")
             return self.signal  # Return previous signal on error
+
 
 
