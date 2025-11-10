@@ -30,7 +30,7 @@ class mvrv(SignalTemplate):
             z=(cur-df.mean())/df.std()
             if z<-0.9:
                 return 1
-            elif (z>-0.9):
+            else:
                 return 0
         except Exception as e:
             return 0
