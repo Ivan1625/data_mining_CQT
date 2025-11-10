@@ -182,44 +182,47 @@ class Execution:
             
 
     def send_order(self, target_position:Dict):
-        self.signal=target_position
-        coin_lot = {}
-        r=self.get_balance()
-        tick=self.get_ticker()
-        info=self.get_ex_info()
-        i=3
-        total_value=self.get_portfolio_value(bal=r,tick=tick)
-        for asset, ratio in self.ratio.items():
-            coin_lot[asset] = total_value * (0.995+0.003)*ratio #prevent fail order due to overlapping capital
-        cash=r['SpotWallet']['USD']['Free']
-        all_assets = set(self.signal.keys()) # assume signal contain all potential coin 
-        for asset in all_assets:
-            if asset == "USD": continue  
-            curr = r['SpotWallet'].get(asset, {}).get("Free", 0.0)
-            price = tick['Data'][f"{asset}/USD"]['LastPrice']
-            curr=price*curr
-            des=self.signal[asset]*coin_lot[asset]
-            targ=des-curr
-            if abs(targ)>total_value*0.03:
-                if des!=0:
-                    step=10**(-info['TradePairs'][f"{asset}/USD"]['AmountPrecision']) 
-                    qty=np.sign(targ)*max(math.floor(abs((targ)/price)/step)*step,math.ceil(abs(1/price)/step)*step)
-                    # print(cash)
-                    cash=cash-targ*(1+0.001)
-                    print("-------------")
-                    print(f"targ: {targ} | curr: {curr}")
-                    print(f"{asset}: {qty*price}") 
-                    print("-------------")
-                    st=self.place_order(coin=asset,side=np.sign(qty),qty=abs(qty))
-                    # time.sleep(0.2)
-                elif des==0:
-                    st=self.clear_all(spec=asset,bal=r)
-                if st==200:
-                    i+=1
-                if i%5==0:
-                    time.sleep(1)
-            else:
-                continue
+        try:
+            self.signal=target_position
+            coin_lot = {}
+            r=self.get_balance()
+            tick=self.get_ticker()
+            info=self.get_ex_info()
+            i=3
+            total_value=self.get_portfolio_value(bal=r,tick=tick)
+            for asset, ratio in self.ratio.items():
+                coin_lot[asset] = total_value * (0.995+0.003)*ratio #prevent fail order due to overlapping capital
+            cash=r['SpotWallet']['USD']['Free']
+            all_assets = set(self.signal.keys()) # assume signal contain all potential coin 
+            for asset in all_assets:
+                if asset == "USD": continue  
+                curr = r['SpotWallet'].get(asset, {}).get("Free", 0.0)
+                price = tick['Data'][f"{asset}/USD"]['LastPrice']
+                curr=price*curr
+                des=self.signal[asset]*coin_lot[asset]
+                targ=des-curr
+                if abs(targ)>total_value*0.03:
+                    if des!=0:
+                        step=10**(-info['TradePairs'][f"{asset}/USD"]['AmountPrecision']) 
+                        qty=np.sign(targ)*max(math.floor(abs((targ)/price)/step)*step,math.ceil(abs(1/price)/step)*step)
+                        # print(cash)
+                        cash=cash-targ*(1+0.001)
+                        print("-------------")
+                        print(f"targ: {targ} | curr: {curr}")
+                        print(f"{asset}: {qty*price}") 
+                        print("-------------")
+                        st=self.place_order(coin=asset,side=np.sign(qty),qty=abs(qty))
+                        # time.sleep(0.2)
+                    elif des==0:
+                        st=self.clear_all(spec=asset,bal=r)
+                    if st==200:
+                        i+=1
+                    if i%5==0:
+                        time.sleep(1)
+                else:
+                    continue
+        else:
+            time.sleep(2)
 
     def clear_all(self,spec=None,bal=None):
         r= bal if bal is not None else self.get_balance()
