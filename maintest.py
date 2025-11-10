@@ -9,6 +9,7 @@ from signals.btc_address import ActiveAddressBTC
 from signals.depositor_eth import Depositor_ETH
 from signals.btc_mvrv import mvrv
 from signals.hmm import hmm_signal
+from signals.abcde import mvrv as etht
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(threadName)s] %(message)s")
 log = logging.getLogger("master")
@@ -35,9 +36,10 @@ def main():
     depositorETH_5 = Depositor_ETH(1, "ETH", 60)
     depositorETH_15 = Depositor_ETH(1, "ETH", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
     mvrv_btc=mvrv(1)
+    tvseth=etht(1)
     # hmm_signal_instance=hmm_signal(1)
 
-    strats = [hybinance, hyokx, activeaddressBTC, depositorETH_5, depositorETH_15, mvrv_btc]#, hmm_signal_instance]
+    strats = [hybinance, hyokx, activeaddressBTC, depositorETH_5, depositorETH_15, mvrv_btc,tvseth]#, hmm_signal_instance]
 
     st_threads = [threading.Thread(target=s.get_signal_thread, daemon=True, name=f"Strat-{i}")
                   for i, s in enumerate(strats)]
