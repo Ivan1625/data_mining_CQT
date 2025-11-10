@@ -175,7 +175,7 @@ class Execution:
             value=wallet[spec]['Free']*ticker['Data'][f"{spec}/USD"]['LastPrice']
             proportion_p=value/total_value
             proportion_t=value/(total_value*self.ratio[spec])
-            return total_value, proportion_p, proportion_t
+            return total_value,value, proportion_p, proportion_t
             
 
     def send_order(self, target_position:Dict):
