@@ -29,6 +29,7 @@ class mvrv(SignalTemplate):
             df1=df['mvrv']
             cur=df.iloc[-1]['mvrv']
             z=(cur-df1.mean())/df1.std()
+            print(f"z: {z}")
             if z<-0.9:
                 return 1
             else:
