@@ -63,7 +63,7 @@ def main():
         print(f"current_eth_to_nav:{cureth[2]}")
         print(f"current_eth_to_(nav_eth):{cureth[3]}")
         exe.send_order(build_consensus(strats))
-        time.sleep(3)
+        time.sleep(10)
 
 if __name__ == "__main__":
     main()
