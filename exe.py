@@ -152,23 +152,26 @@ class Execution:
         return r.json()
     
     def get_portfolio_value(self,bal=None,tick=None,spec=None) -> float:
-        balance_resp = bal if bal is not None else self.get_balance()
-        wallet = balance_resp.get("SpotWallet", {})  
-        total_value = 0.0
-        ticker=tick if tick is not None else self.get_ticker()
-        for asset, balances in wallet.items():
-                free_amount = balances.get("Free", 0.0)
-                if asset == "USD":
-                    total_value += free_amount
-                else:
-                    try:
-                        pair = f"{asset}/USD"
-                        price = float(ticker['Data'][pair]['LastPrice'])
-                        usd_value = free_amount * price
-                        total_value += usd_value
-                    except Exception as e:
-                        print(f" Error fetching price for {asset}: {e}")
-                        continue
+        try:
+            balance_resp = bal if bal is not None else self.get_balance()
+            wallet = balance_resp.get("SpotWallet", {})  
+            total_value = 0.0
+            ticker=tick if tick is not None else self.get_ticker()
+            for asset, balances in wallet.items():
+                    free_amount = balances.get("Free", 0.0)
+                    if asset == "USD":
+                        total_value += free_amount
+                    else:
+                        try:
+                            pair = f"{asset}/USD"
+                            price = float(ticker['Data'][pair]['LastPrice'])
+                            usd_value = free_amount * price
+                            total_value += usd_value
+                        except Exception as e:
+                            print(f" Error fetching price for {asset}: {e}")
+                            continue
+        except:
+            time.sleep(1)
         if spec==None:
             return total_value
         else: 
