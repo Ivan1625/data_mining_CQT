@@ -20,7 +20,7 @@ class adatvs(SignalTemplate):
         df.columns=['t','mvrv']
         df['mvrv']=df['mvrv'].diff().diff()
         df['t']=pd.to_datetime(df['t'],unit='ms')
-        df=df.iloc[-44:-4]
+        df=df.iloc[-46:-4]
         return df
     
     def get_signal(self):
