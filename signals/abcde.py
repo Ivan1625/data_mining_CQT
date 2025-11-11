@@ -7,7 +7,7 @@ from collections import deque
 import statistics
 
 class mvrv(SignalTemplate):
-    def __init__(self, weight, ticker='ETH', signal_update_frequency_seconds=3600, window_size=7):
+    def __init__(self, weight, ticker='BTC', signal_update_frequency_seconds=3600, window_size=7):
         super().__init__(weight, ticker, signal_update_frequency_seconds)
         self.window_size = window_size
 
