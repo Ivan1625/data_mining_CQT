@@ -170,18 +170,19 @@ class Execution:
                         except Exception as e:
                             print(f" Error fetching price for {asset}: {e}")
                             continue
+            if spec==None:
+                return total_value
+            else: 
+                try:
+                    value=wallet[spec]['Free']*ticker['Data'][f"{spec}/USD"]['LastPrice']
+                    proportion_p=value/total_value
+                    proportion_t=value/(total_value*self.ratio[spec])
+                    return total_value,value, proportion_p, proportion_t
+                except:
+                    return total_value,0,0,0
         except:
             time.sleep(1)
-        if spec==None:
-            return total_value
-        else: 
-            try:
-                value=wallet[spec]['Free']*ticker['Data'][f"{spec}/USD"]['LastPrice']
-                proportion_p=value/total_value
-                proportion_t=value/(total_value*self.ratio[spec])
-                return total_value,value, proportion_p, proportion_t
-            except:
-                return total_value,0,0,0
+        
             
 
     def send_order(self, target_position:Dict):
