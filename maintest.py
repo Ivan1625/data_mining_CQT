@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(threadName)s] %(m
 log = logging.getLogger("master")
 
 # ---------- config ----------
-COIN_WEIGHTS = {"BTC": 0, "ETH": 0.325, "SOL": 0, "BNB": 0, "SUI": 0.1, "XRP": 0.075, "ADA": 0.075}
+COIN_WEIGHTS = {"BTC": 0, "ETH": 0.8, "SOL": 0, "BNB": 0, "SUI": 0.2, "XRP": 0, "ADA": 0}
 
 # ---------- shared ----------
 latest_target: Dict[str, float] = {}          # latest consensus
@@ -30,19 +30,19 @@ def build_consensus(strategies):
 
 # ---------- start-up ----------
 def main():
-    hybinance = HyBinance(1, "ETH", 60)
-    hyokx = HyOKX(1, "ETH", 60)
-    activeaddressBTC = ActiveAddressBTC(1, "BTC", 60)
+    # hybinance = HyBinance(1, "ETH", 60)
+    # hyokx = HyOKX(1, "ETH", 60)
+    # activeaddressBTC = ActiveAddressBTC(1, "BTC", 60)
     depositorETH_5 = Depositor_ETH(1, "ETH", 60)
-    depositorETH_15 = Depositor_ETH(1, "ETH", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
-    mvrv_btc=mvrv(1)
-    tvseth=etht(1)
-    activeaddressSOL = ActiveAddressBTC(1, "SOL", 60)
-    activeaddressBNB = ActiveAddressBTC(1, "BNB", 60)
+    # depositorETH_15 = Depositor_ETH(1, "ETH", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
+    # mvrv_btc=mvrv(1)
+    # tvseth=etht(1)
+    # activeaddressSOL = ActiveAddressBTC(1, "SOL", 60)
+    # activeaddressBNB = ActiveAddressBTC(1, "BNB", 60)
     depositorSUI_5 = Depositor_ETH(1, "SUI", 60)
-    depositorSUI_15 = Depositor_ETH(1, "SUI", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
-    depositorXRP_15 = Depositor_ETH(1, "XRP", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
-    adatvsada=adatvs(1)
+    # depositorSUI_15 = Depositor_ETH(1, "SUI", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
+    # depositorXRP_15 = Depositor_ETH(1, "XRP", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
+    # adatvsada=adatvs(1)
 
 
     strats = [hybinance, hyokx, activeaddressBTC, depositorETH_5, depositorETH_15, mvrv_btc,tvseth, activeaddressSOL, activeaddressBNB, depositorSUI_5,
