@@ -152,6 +152,7 @@ class Execution:
         return r.json()
     
     def get_portfolio_value(self,bal=None,tick=None,spec=None) -> float:
+        # if total_value==0:
         try:
             balance_resp = bal if bal is not None else self.get_balance()
             wallet = balance_resp.get("SpotWallet", {})  
