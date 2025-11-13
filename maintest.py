@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(threadName)s] %(m
 log = logging.getLogger("master")
 
 # ---------- config ----------
-COIN_WEIGHTS = {"BTC": 0, "ETH": 0, "SOL": 0, "BNB": 0, "SUI": 0, "XRP": 0, "ADA": 0}
+COIN_WEIGHTS = {"BTC": 0.2, "ETH": 0, "SOL": 0, "BNB": 0, "SUI": 0, "XRP": 0, "ADA": 0}
 
 # ---------- shared ----------
 latest_target: Dict[str, float] = {}          # latest consensus
@@ -33,13 +33,13 @@ def main():
     # hybinance = HyBinance(1, "ETH", 60)
     # hyokx = HyOKX(1, "ETH", 60)
     # activeaddressBTC = ActiveAddressBTC(1, "BTC", 60)
-    depositorETH_5 = Depositor_ETH(1, "ETH", 60)
+    # depositorETH_5 = Depositor_ETH(1, "ETH", 60)
     # depositorETH_15 = Depositor_ETH(1, "ETH", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
-    # mvrv_btc=mvrv(1)
+    mvrv_btc=mvrv(1)
     # tvseth=etht(1)
     # activeaddressSOL = ActiveAddressBTC(1, "SOL", 60)
     # activeaddressBNB = ActiveAddressBTC(1, "BNB", 60)
-    depositorSUI_5 = Depositor_ETH(1, "SUI", 60)
+    # depositorSUI_5 = Depositor_ETH(1, "SUI", 60)
     # depositorSUI_15 = Depositor_ETH(1, "SUI", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
     # depositorXRP_15 = Depositor_ETH(1, "XRP", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
     # adatvsada=adatvs(1)
@@ -47,7 +47,8 @@ def main():
 
     # strats = [hybinance, hyokx, activeaddressBTC, depositorETH_5, depositorETH_15, mvrv_btc,tvseth, activeaddressSOL, activeaddressBNB, depositorSUI_5,
     #           depositorSUI_15, depositorXRP_15, adatvsada]
-    strats = [depositorETH_5, depositorSUI_5]
+    # strats = [depositorETH_5, depositorSUI_5]
+    strats = [mvrv_btc]
 
     st_threads = [threading.Thread(target=s.get_signal_thread, daemon=True, name=f"Strat-{i}")
                   for i, s in enumerate(strats)]
@@ -62,39 +63,39 @@ def main():
             print(f"{time.time()}: [{i}] {s.signal}")
         curbtc=exe.get_portfolio_value(spec='BTC')
         print(f"current_nav:{curbtc[0]}")
-        print(f"current_nav_btc:{curbtc[1]}")
-        print(f"current_btc_to_nav:{curbtc[2]}")
-        print(f"current_btc_to_(nav_btc):{curbtc[3]}")
-        cureth=exe.get_portfolio_value(spec='ETH')
-        print(f"current_nav:{cureth[0]}")
-        print(f"current_nav_eth:{cureth[1]}")
-        print(f"current_eth_to_nav:{cureth[2]}")
-        print(f"current_eth_to_(nav_eth):{cureth[3]}")
-        cureth=exe.get_portfolio_value(spec='SOL')
+        # print(f"current_nav_btc:{curbtc[1]}")
+        # print(f"current_btc_to_nav:{curbtc[2]}")
+        # print(f"current_btc_to_(nav_btc):{curbtc[3]}")
+        # cureth=exe.get_portfolio_value(spec='ETH')
         # print(f"current_nav:{cureth[0]}")
-        print(f"current_nav_sol:{cureth[1]}")
-        print(f"current_sol_to_nav:{cureth[2]}")
-        print(f"current_sol_to_(nav_sol):{cureth[3]}")
-        cureth=exe.get_portfolio_value(spec='SUI')
-        # print(f"current_nav:{cureth[0]}")
-        print(f"current_nav_sui:{cureth[1]}")
-        print(f"current_sui_to_nav:{cureth[2]}")
-        print(f"current_sui_to_(nav_sui):{cureth[3]}")
-        cureth=exe.get_portfolio_value(spec='BNB')
-        # print(f"current_nav:{cureth[0]}")
-        print(f"current_nav_bnb:{cureth[1]}")
-        print(f"current_bnb_to_nav:{cureth[2]}")
-        print(f"current_bnb_to_(nav_bnb):{cureth[3]}")
-        cureth=exe.get_portfolio_value(spec='XRP')
-        # print(f"current_nav:{cureth[0]}")
-        print(f"current_nav_xrp:{cureth[1]}")
-        print(f"current_xrp_to_nav:{cureth[2]}")
-        print(f"current_xrp_to_(nav_xrp):{cureth[3]}")
-        cureth=exe.get_portfolio_value(spec='ADA')
-        # print(f"current_nav:{cureth[0]}")
-        print(f"current_nav_ada:{cureth[1]}")
-        print(f"current_ada_to_nav:{cureth[2]}")
-        print(f"current_ada_to_(nav_ada):{cureth[3]}")
+        # print(f"current_nav_eth:{cureth[1]}")
+        # print(f"current_eth_to_nav:{cureth[2]}")
+        # print(f"current_eth_to_(nav_eth):{cureth[3]}")
+        # cureth=exe.get_portfolio_value(spec='SOL')
+        # # print(f"current_nav:{cureth[0]}")
+        # print(f"current_nav_sol:{cureth[1]}")
+        # print(f"current_sol_to_nav:{cureth[2]}")
+        # print(f"current_sol_to_(nav_sol):{cureth[3]}")
+        # cureth=exe.get_portfolio_value(spec='SUI')
+        # # print(f"current_nav:{cureth[0]}")
+        # print(f"current_nav_sui:{cureth[1]}")
+        # print(f"current_sui_to_nav:{cureth[2]}")
+        # print(f"current_sui_to_(nav_sui):{cureth[3]}")
+        # cureth=exe.get_portfolio_value(spec='BNB')
+        # # print(f"current_nav:{cureth[0]}")
+        # print(f"current_nav_bnb:{cureth[1]}")
+        # print(f"current_bnb_to_nav:{cureth[2]}")
+        # print(f"current_bnb_to_(nav_bnb):{cureth[3]}")
+        # cureth=exe.get_portfolio_value(spec='XRP')
+        # # print(f"current_nav:{cureth[0]}")
+        # print(f"current_nav_xrp:{cureth[1]}")
+        # print(f"current_xrp_to_nav:{cureth[2]}")
+        # print(f"current_xrp_to_(nav_xrp):{cureth[3]}")
+        # cureth=exe.get_portfolio_value(spec='ADA')
+        # # print(f"current_nav:{cureth[0]}")
+        # print(f"current_nav_ada:{cureth[1]}")
+        # print(f"current_ada_to_nav:{cureth[2]}")
+        # print(f"current_ada_to_(nav_ada):{cureth[3]}")
 
         
         exe.send_order(build_consensus(strats))
