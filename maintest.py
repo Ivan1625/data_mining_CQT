@@ -21,7 +21,7 @@ try:
     gist_id = '4994d64b301f85d2d2013e3eb6f5ab26'
     api_url = f"https://api.github.com/gists/{gist_id}"
     r = requests.get(api_url)
-    data    = r.json()
+    data = r.json()
     d=data['files']['gistfile1.txt']['content']
     COIN_WEIGHTS = ast.literal_eval(d)
 except:
