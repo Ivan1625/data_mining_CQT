@@ -72,6 +72,7 @@ def main():
             print(f"{time.time()}: [{i}] {s.signal}")
         curbtc=exe.get_portfolio_value(spec='BTC')
         print(f"current_nav:{curbtc[0]}")
+        print(f"coin weights: {COIN_WEIGHTS}")
         # print(f"current_nav_btc:{curbtc[1]}")
         # print(f"current_btc_to_nav:{curbtc[2]}")
         # print(f"current_btc_to_(nav_btc):{curbtc[3]}")
