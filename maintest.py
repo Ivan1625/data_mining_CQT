@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 import time, logging, threading
-import requests
-import ast
 from typing import Dict
 from exe import Execution
 # ---------- import your strategy ----------
@@ -17,9 +15,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(threadName)s] %(m
 log = logging.getLogger("master")
 
 # ---------- config ----------
-r=requests.get('https://gist.githubusercontent.com/samwongpq/3c6d375505c99af3aabbc0c9cd077213/raw/4350aaac3ba29618bc31739256314f818c2fb865/gistfile1.txt')
-coin_dict = ast.literal_eval(r.text)
-COIN_WEIGHTS = coin_dict
+COIN_WEIGHTS = {''}
 
 # ---------- shared ----------
 latest_target: Dict[str, float] = {}          # latest consensus
