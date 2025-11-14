@@ -40,25 +40,24 @@ def build_consensus(strategies):
 
 # ---------- start-up ----------
 def main():
-    # hybinance = HyBinance(1, "ETH", 60)
-    # hyokx = HyOKX(1, "ETH", 60)
-    # activeaddressBTC = ActiveAddressBTC(1, "BTC", 60)
-    # depositorETH_5 = Depositor_ETH(1, "ETH", 60)
-    # depositorETH_15 = Depositor_ETH(1, "ETH", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
+    hybinance = HyBinance(1, "ETH", 60)
+    hyokx = HyOKX(1, "ETH", 60)
+    activeaddressBTC = ActiveAddressBTC(1, "BTC", 60)
+    depositorETH_5 = Depositor_ETH(1, "ETH", 60)
+    depositorETH_15 = Depositor_ETH(1, "ETH", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
     mvrv_btc=mvrv(1)
-    # tvseth=etht(1)
-    # activeaddressSOL = ActiveAddressBTC(1, "SOL", 60)
-    # activeaddressBNB = ActiveAddressBTC(1, "BNB", 60)
-    # depositorSUI_5 = Depositor_ETH(1, "SUI", 60)
-    # depositorSUI_15 = Depositor_ETH(1, "SUI", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
-    # depositorXRP_15 = Depositor_ETH(1, "XRP", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
-    # adatvsada=adatvs(1)
+    tvseth=etht(1)
+    activeaddressSOL = ActiveAddressBTC(1, "SOL", 60)
+    activeaddressBNB = ActiveAddressBTC(1, "BNB", 60)
+    depositorSUI_5 = Depositor_ETH(1, "SUI", 60)
+    depositorSUI_15 = Depositor_ETH(1, "SUI", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
+    depositorXRP_15 = Depositor_ETH(1, "XRP", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
+    adatvsada=adatvs(1)
 
 
-    # strats = [hybinance, hyokx, activeaddressBTC, depositorETH_5, depositorETH_15, mvrv_btc,tvseth, activeaddressSOL, activeaddressBNB, depositorSUI_5,
-    #           depositorSUI_15, depositorXRP_15, adatvsada]
-    # strats = [depositorETH_5, depositorSUI_5]
-    strats = [mvrv_btc]
+    strats = [hybinance, hyokx, activeaddressBTC, depositorETH_5, depositorETH_15, mvrv_btc,tvseth, activeaddressSOL, activeaddressBNB, depositorSUI_5,
+              depositorSUI_15, depositorXRP_15, adatvsada]
+
 
     st_threads = [threading.Thread(target=s.get_signal_thread, daemon=True, name=f"Strat-{i}")
                   for i, s in enumerate(strats)]
