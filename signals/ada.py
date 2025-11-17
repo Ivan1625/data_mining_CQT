@@ -8,7 +8,7 @@ import statistics
 from datetime import datetime
 
 class adatvs(SignalTemplate):
-    def __init__(self, weight, ticker='ADA', signal_update_frequency_seconds=5, window_size=40):
+    def __init__(self, weight, ticker='ADA', signal_update_frequency_seconds=40, window_size=40):
         super().__init__(weight, ticker, signal_update_frequency_seconds)
 
     def data(self):
@@ -25,17 +25,22 @@ class adatvs(SignalTemplate):
         return df
     
     def get_signal(self):
-        try:
-            df=self.data()
-            df1=df['mvrv']
-            cur=df.iloc[-1]['mvrv']
-            z=(cur-df1.mean())/df1.std()
-            print(f"z: {z}")
-            if self.signal==0 and z<-0.9:
-                return 1
-            elif self.signal==1 and z>0:
-                return 0
-            else:
-              return self.signal
-        except Exception as e:
-            return 0
+        retries=3
+        for attempt in range(retries):
+            try:
+                df=self.data()
+                df1=df['mvrv']
+                cur=df.iloc[-1]['mvrv']
+                z=(cur-df1.mean())/df1.std()
+                print(f"z: {z}")
+                if self.signal==0 and z<-0.9:
+                    return 1
+                elif self.signal==1 and z>0:
+                    return 0
+                else:
+                  return self.signal
+            except Exception as e:
+                if attempt<retries-1:
+                    time.sleep(10)
+                else:
+                    return self.signal

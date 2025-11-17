@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 import time, logging, threading
+import requests
+import ast
 from typing import Dict
 from exe import Execution
 # ---------- import your strategy ----------
@@ -15,7 +17,15 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(threadName)s] %(m
 log = logging.getLogger("master")
 
 # ---------- config ----------
-COIN_WEIGHTS = {"BTC": 0, "ETH": 0, "SOL": 0, "BNB": 0, "SUI": 0, "XRP": 0, "ADA": 0}
+try:
+    gist_id = '4994d64b301f85d2d2013e3eb6f5ab26'
+    api_url = f"https://api.github.com/gists/{gist_id}"
+    r = requests.get(api_url)
+    data = r.json()
+    d=data['files']['gistfile1.txt']['content']
+    COIN_WEIGHTS = ast.literal_eval(d)
+except:
+    COIN_WEIGHTS = {"BTC": 0.2, "ETH": 0.3, "SOL": 0.1, "BNB": 0.1, "SUI": 0.1, "XRP": 0.1, "ADA": 0.1}
 
 # ---------- shared ----------
 latest_target: Dict[str, float] = {}          # latest consensus
@@ -30,25 +40,24 @@ def build_consensus(strategies):
 
 # ---------- start-up ----------
 def main():
-    # hybinance = HyBinance(1, "ETH", 60)
-    # hyokx = HyOKX(1, "ETH", 60)
-    # activeaddressBTC = ActiveAddressBTC(1, "BTC", 60)
-    # depositorETH_5 = Depositor_ETH(1, "ETH", 60)
-    # depositorETH_15 = Depositor_ETH(1, "ETH", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
+    hybinance = HyBinance(1, "ETH", 60)
+    hyokx = HyOKX(1, "ETH", 60)
+    activeaddressBTC = ActiveAddressBTC(1, "BTC", 60)
+    depositorETH_5 = Depositor_ETH(1, "ETH", 60)
+    depositorETH_15 = Depositor_ETH(1, "ETH", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
     mvrv_btc=mvrv(1)
-    # tvseth=etht(1)
-    # activeaddressSOL = ActiveAddressBTC(1, "SOL", 60)
-    # activeaddressBNB = ActiveAddressBTC(1, "BNB", 60)
-    # depositorSUI_5 = Depositor_ETH(1, "SUI", 60)
-    # depositorSUI_15 = Depositor_ETH(1, "SUI", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
-    # depositorXRP_15 = Depositor_ETH(1, "XRP", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
-    # adatvsada=adatvs(1)
+    tvseth=etht(1)
+    activeaddressSOL = ActiveAddressBTC(1, "SOL", 60)
+    activeaddressBNB = ActiveAddressBTC(1, "BNB", 60)
+    depositorSUI_5 = Depositor_ETH(1, "SUI", 60)
+    depositorSUI_15 = Depositor_ETH(1, "SUI", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
+    depositorXRP_15 = Depositor_ETH(1, "XRP", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
+    adatvsada=adatvs(1)
 
 
-    # strats = [hybinance, hyokx, activeaddressBTC, depositorETH_5, depositorETH_15, mvrv_btc,tvseth, activeaddressSOL, activeaddressBNB, depositorSUI_5,
-    #           depositorSUI_15, depositorXRP_15, adatvsada]
-    # strats = [depositorETH_5, depositorSUI_5]
-    strats = [mvrv_btc]
+    strats = [hybinance, hyokx, activeaddressBTC, depositorETH_5, depositorETH_15, mvrv_btc,tvseth, activeaddressSOL, activeaddressBNB, depositorSUI_5,
+              depositorSUI_15, depositorXRP_15, adatvsada]
+
 
     st_threads = [threading.Thread(target=s.get_signal_thread, daemon=True, name=f"Strat-{i}")
                   for i, s in enumerate(strats)]
@@ -62,7 +71,11 @@ def main():
         for i,s in enumerate(strats):
             print(f"{time.time()}: [{i}] {s.signal}")
         curbtc=exe.get_portfolio_value(spec='BTC')
-        print(f"current_nav:{curbtc[0]}")
+        try:
+            print(f"current_nav:{curbtc[0]}")
+            print(f"coin weights: {COIN_WEIGHTS}")
+        except:
+            print('nth')
         # print(f"current_nav_btc:{curbtc[1]}")
         # print(f"current_btc_to_nav:{curbtc[2]}")
         # print(f"current_btc_to_(nav_btc):{curbtc[3]}")
