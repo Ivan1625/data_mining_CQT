@@ -40,6 +40,6 @@ class mvrv(SignalTemplate):
                 if attempt<retries-1:
                     time.sleep(10)
                 else:
-                    return self.signal
+                    return self.signal 
     
     
