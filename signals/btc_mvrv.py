@@ -35,7 +35,7 @@ class mvrv(SignalTemplate):
                 if z<-0.9:
                     return 1
                 else:
-                    return 0
+                    return 1
             except Exception as e:
                 if attempt<retries-1:
                     time.sleep(10)
