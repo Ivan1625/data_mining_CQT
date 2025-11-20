@@ -42,7 +42,7 @@ def build_consensus(strategies):
 def main():
     hybinance = HyBinance(1, "ETH", 60)
     hyokx = HyOKX(1, "ETH", 60)
-    activeaddressBTC = ActiveAddressBTC(1, "BTC", 60)
+    activeaddressBTC = ActiveAddressBTC(1, "BNB", 60)
     depositorETH_5 = Depositor_ETH(1, "ETH", 60)
     depositorETH_15 = Depositor_ETH(1, "ETH", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
     mvrv_btc=mvrv(1)
