@@ -48,7 +48,7 @@ def main():
     mvrv_btc=mvrv(1)
     tvseth=etht(1)
     activeaddressSOL = ActiveAddressBTC(1, "SOL", 60)
-    activeaddressBNB = ActiveAddressBTC(1, "BNB", 60)
+    activeaddressBNB = ActiveAddressBTC(1, "ZEC", 60)
     depositorSUI_5 = Depositor_ETH(1, "SUI", 60)
     depositorSUI_15 = Depositor_ETH(1, "SUI", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
     depositorXRP_15 = Depositor_ETH(1, "XRP", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
