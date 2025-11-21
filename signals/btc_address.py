@@ -56,19 +56,20 @@ class ActiveAddressBTC(SignalTemplate):
     
     def get_signal(self):
         # TODO
-        if not self.initialize_window():
-            return 0
+        # if not self.initialize_window():
+        #     return 0
 
-        if len(self.diff_window) < self.window_size - 2:
-            return 0
+        # if len(self.diff_window) < self.window_size - 2:
+        #     return 0
             
-        rolling_ratio = self.get_rolling_ratio()
-        print(f"{self.ticker}| {self.last_updated}: {rolling_ratio}")
-        if self.signal == 0: 
-            if rolling_ratio > self.buy_threshold:
-                return 1
+        # rolling_ratio = self.get_rolling_ratio()
+        # print(f"{self.ticker}| {self.last_updated}: {rolling_ratio}")
+        # if self.signal == 0: 
+        #     if rolling_ratio > self.buy_threshold:
+        #         return 1
             
-        elif self.signal == 1 and rolling_ratio < self.buy_exit_threshold:
-            return 0 
+        # elif self.signal == 1 and rolling_ratio < self.buy_exit_threshold:
+        #     return 0 
         
-        return self.signal
+        # return self.signal
+        return 1
