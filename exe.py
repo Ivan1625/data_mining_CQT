@@ -83,7 +83,7 @@ class Execution:
             side='SELL'
         payload = {
             "timestamp": int(time.time()) * 1000,
-            "pair": coin + "/USD",
+            "pair": "SOL" + "/USD",
             "side": side,
             "quantity": qty,
         }
