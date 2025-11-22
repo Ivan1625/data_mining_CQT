@@ -58,7 +58,7 @@ def main():
 
     # strats = [hybinance, hyokx, activeaddressBTC, depositorETH_5, depositorETH_15, mvrv_btc,tvseth, activeaddressSOL, activeaddressBNB, depositorSUI_5,
     #           depositorSUI_15, depositorXRP_15, adatvsada]
-    strats = activeaddressSOL
+    strats = [activeaddressSOL]
 
     st_threads = [threading.Thread(target=s.get_signal_thread, daemon=True, name=f"Strat-{i}")
                   for i, s in enumerate(strats)]
