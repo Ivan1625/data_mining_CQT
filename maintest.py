@@ -18,7 +18,7 @@ log = logging.getLogger("master")
 
 # ---------- config ----------
 try:
-    # gist_id = '4994d64b301f85d2d2013e3eb6f5ab26'
+    gist_id = '4994d64b301f85d2d2013e3eb6f5ab26'
     api_url = f"https://api.github.com/gists/{gist_id}"
     r = requests.get(api_url)
     data = r.json()
