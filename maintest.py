@@ -53,12 +53,12 @@ def main():
     # depositorSUI_5 = Depositor_ETH(1, "SUI", 60)
     # depositorSUI_15 = Depositor_ETH(1, "SUI", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
     # depositorXRP_15 = Depositor_ETH(1, "XRP", 60, window_size=15, buy_threshold=0.7, buy_exit_threshold=0.55)
-    # adatvsada=adatvs(1)
+    adatvsada=adatvs(1)
 
 
     # strats = [hybinance, hyokx, activeaddressBTC, depositorETH_5, depositorETH_15, mvrv_btc,tvseth, activeaddressSOL, activeaddressBNB, depositorSUI_5,
               # depositorSUI_15, depositorXRP_15, adatvsada]/
-    strats = [mvrv_btc]
+    strats = [mvrv_btc,adatvsada]
 
     st_threads = [threading.Thread(target=s.get_signal_thread, daemon=True, name=f"Strat-{i}")
                   for i, s in enumerate(strats)]
