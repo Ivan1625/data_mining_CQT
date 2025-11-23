@@ -72,4 +72,4 @@ class ActiveAddressBTC(SignalTemplate):
         #     return 0 
         
         # return self.signal
-        return 0
+        return -1
