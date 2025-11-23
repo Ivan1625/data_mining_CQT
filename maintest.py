@@ -17,16 +17,16 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(threadName)s] %(m
 log = logging.getLogger("master")
 
 # ---------- config ----------
-# try:
-#     gist_id = '4994d64b301f85d2d2013e3eb6f5ab26'
-#     api_url = f"https://api.github.com/gists/{gist_id}"
-#     r = requests.get(api_url)
-#     data = r.json()
-#     d=data['files']['gistfile1.txt']['content']
-#     COIN_WEIGHTS = ast.literal_eval(d)
-# except:
-#     COIN_WEIGHTS = {"BTC": 0.2, "ETH": 0.3, "SOL": 0.1, "BNB": 0.1, "SUI": 0.1, "XRP": 0.1, "ADA": 0.1}
-COIN_WEIGHTS = {'ZEC':0}
+try:
+    gist_id = '4994d64b301f85d2d2013e3eb6f5ab26'
+    api_url = f"https://api.github.com/gists/{gist_id}"
+    r = requests.get(api_url)
+    data = r.json()
+    d=data['files']['gistfile1.txt']['content']
+    COIN_WEIGHTS = ast.literal_eval(d)
+except:
+    COIN_WEIGHTS = {"BTC": 0.2, "ETH": 0.3, "SOL": 0.1, "BNB": 0.1, "SUI": 0.1, "XRP": 0.1, "ADA": 0.1}
+# COIN_WEIGHTS = {'ZEC':0}
 
 # ---------- shared ----------
 latest_target: Dict[str, float] = {}          # latest consensus
@@ -71,10 +71,11 @@ def main():
         print(f"len of strats: {len(strats)}")
         for i,s in enumerate(strats):
             print(f"{time.time()}: [{i}] {s.signal}")
-        curbtc=exe.get_portfolio_value(spec='BTC')
+        curbtc=exe.get_portfolio_value(spec='ZEC')
         try:
             print(f"current_nav:{curbtc[0]}")
             print(f"coin weights: {COIN_WEIGHTS}")
+            print(curbtc[1])
         except:
             print('nth')
         # print(f"current_nav_btc:{curbtc[1]}")
