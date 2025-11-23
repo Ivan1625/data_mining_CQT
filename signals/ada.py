@@ -8,7 +8,7 @@ import statistics
 from datetime import datetime
 
 class adatvs(SignalTemplate):
-    def __init__(self, weight, ticker='TNSR', signal_update_frequency_seconds=40, window_size=40):
+    def __init__(self, weight, ticker='ASTER', signal_update_frequency_seconds=40, window_size=40):
         super().__init__(weight, ticker, signal_update_frequency_seconds)
 
     def data(self):
