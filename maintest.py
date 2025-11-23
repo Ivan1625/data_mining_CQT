@@ -17,16 +17,16 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(threadName)s] %(m
 log = logging.getLogger("master")
 
 # ---------- config ----------
-# try:
-#     gist_id = '4994d64b301f85d2d2013e3eb6f5ab26'
-#     api_url = f"https://api.github.com/gists/{gist_id}"
-#     r = requests.get(api_url)
-#     data = r.json()
-#     d=data['files']['gistfile1.txt']['content']
-#     COIN_WEIGHTS = ast.literal_eval(d)
-# except:
-#     COIN_WEIGHTS = {"BTC": 0.2, "ETH": 0.3, "SOL": 0.1, "BNB": 0.1, "SUI": 0.1, "XRP": 0.1, "ADA": 0.1}
-COIN_WEIGHTS = {'ZEC':0.5}
+try:
+    gist_id = '4994d64b301f85d2d2013e3eb6f5ab26'
+    api_url = f"https://api.github.com/gists/{gist_id}"
+    r = requests.get(api_url)
+    data = r.json()
+    d=data['files']['gistfile1.txt']['content']
+    COIN_WEIGHTS = ast.literal_eval(d)
+except:
+    COIN_WEIGHTS = {"BTC": 0.2, "ETH": 0.3, "SOL": 0.1, "BNB": 0.1, "SUI": 0.1, "XRP": 0.1, "ADA": 0.1}
+# COIN_WEIGHTS = {'ZEC':1}
 
 # ---------- shared ----------
 latest_target: Dict[str, float] = {}          # latest consensus
